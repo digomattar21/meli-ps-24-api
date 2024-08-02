@@ -1,27 +1,26 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-    environment:
-      - FLASK_ENV=development
-    depends_on:
-      - db
-
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: flask_db
       POSTGRES_USER: flask_user
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: flask_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "app.py"]
+    depends_on:
+      - db
+    environment:
+      FLASK_ENV: development
+    ports:
+      - "5000:5000"
 
 volumes:
   postgres_data:
