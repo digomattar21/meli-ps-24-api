@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from routes.public import routes as publicRoutes
 from utils.apiMessages import errorMessage, LocalApiCode
 from heart.core.extensions import db  
-from heart.core.seeder import seed_severities, seed_categories
+from heart.core.seeder import seed_severities, seed_categories, seed_tickets
 
 def _notFound(error):
     return {"errors": [errorMessage(LocalApiCode.unknownRoute)]}, 404
@@ -36,6 +36,7 @@ def create_app():
         db.create_all()  
         seed_severities()
         seed_categories()
+        seed_tickets()
         
     return app
 
