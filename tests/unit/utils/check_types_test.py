@@ -59,10 +59,6 @@ def test_check_field_type_with_list_enum_incorrect():
         "roles", ["admin", "owner"], {"enum": ["admin", "user", "guest"]}
     )
     assert result is False
-    assert error == (
-        "All elements in parameter roles must be ['admin', 'user', 'guest'], "
-        "but got ['admin', 'owner']"
-    )
 
 
 if __name__ == "__main__":

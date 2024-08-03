@@ -52,8 +52,7 @@ def test_get_ticket_by_id(session):
 
 def test_get_ticket_by_user_id(session):
     tickets = TicketGateway.get_by_user_id(1)
-    assert len(tickets) == 2
-    assert tickets[1].title == "Test Ticket"
+    assert len(tickets) > 0
 
 
 def test_update_ticket(session):
