@@ -1,11 +1,20 @@
 # app/gateways/ticket_gateway.py
-from models.ticket import Ticket
 from heart.core.extensions import db
+from models.ticket import Ticket
+
 
 class TicketGateway:
 
     @classmethod
-    def create(cls, title, description, category_id, user_id, subcategory_id=None, severity_id=None):
+    def create(
+        cls,
+        title,
+        description,
+        category_id,
+        user_id,
+        subcategory_id=None,
+        severity_id=None,
+    ):
         ticket = Ticket(
             title=title,
             description=description,
@@ -25,7 +34,7 @@ class TicketGateway:
     @classmethod
     def get_by_user_id(cls, user_id):
         return Ticket.query.filter_by(user_id=user_id).all()
-    
+
     @classmethod
     def get_all(cls):
         return Ticket.query.all()

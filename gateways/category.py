@@ -1,6 +1,8 @@
-from models.category import Category
-from heart.core.extensions import db
 from sqlalchemy.exc import IntegrityError
+
+from heart.core.extensions import db
+from models.category import Category
+
 
 class CategoryGateway:
 
@@ -12,7 +14,7 @@ class CategoryGateway:
             db.session.commit()
             return category
         except IntegrityError:
-            db.session.rollback()  
+            db.session.rollback()
             return None
 
     @classmethod

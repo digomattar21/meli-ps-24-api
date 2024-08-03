@@ -1,5 +1,6 @@
 from services.jsonplaceholder import JSONPlaceholderService
 
+
 class UserGateway:
 
     @classmethod
