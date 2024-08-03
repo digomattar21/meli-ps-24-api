@@ -18,6 +18,13 @@ class LocalApiCode:
     invalidSubcategory = "invalidSubcategory"
     invalidSeverity = "invalidSeverity"
     ticketNotFound = "ticketNotFound"
+    categoryNotFound = "categoryNotFound"
+    duplicateCategoryName = "duplicateCategoryName"
+    invalidParentCategory = "invalidParentCategory"
+    invalidCategoryName = "invalidCategoryName"
+    invalidTitle = "invalidTitle"
+    invalidDescription = "invalidDescription"
+    isNotSubcategory = "isNotSubcategory"
     existingUser = "existingUser"
     emptyRequest = "emptyRequest"
     internalError = "internalError"
@@ -40,6 +47,13 @@ localApiMessage = {
         LocalApiCode.internalError: "Internal error occured, contact us.",
         LocalApiCode.emptyRequest: "Request does not contain any content.",
         LocalApiCode.ticketNotFound: "Ticket not found.",
+        LocalApiCode.categoryNotFound: "Category not found.",
+        LocalApiCode.invalidParentCategory: "Parent category with this id does not exist.",
+        LocalApiCode.invalidCategoryName: "Category name must be a string.",
+        LocalApiCode.invalidTitle: "Title must be a string.",
+        LocalApiCode.invalidDescription: "Description must be a string.",
+        LocalApiCode.isNotSubcategory: "Subcategory id provided is not a subcategory of the category or it doesnt exist.",
+        LocalApiCode.duplicateCategoryName: "Category with this name already exists",
         LocalApiCode.invalidCategory: "Category id does not match existing category.",
         LocalApiCode.invalidSubcategory: "Subcategory id does not match existing subcategory.",
         LocalApiCode.invalidSeverity: "Severity level does not match existing severity levels and it cannot equal 1"
@@ -57,8 +71,15 @@ localApiMessage = {
         LocalApiCode.emptyRequest: "Requisição não contém nenhum conteúdo.",
         LocalApiCode.internalError: "Erro interno de servidor, contate-nos.",
         LocalApiCode.invalidCategory: "Id da categoria nao existe.",
+        LocalApiCode.invalidParentCategory: "Categoria parente com esse id nao existe.",
+        LocalApiCode.duplicateCategoryName: "Categoria com esse nome ja existe.",
+        LocalApiCode.invalidCategoryName: "Nome da categoria deve ser uma string.",
+        LocalApiCode.invalidTitle: "Titulo deve ser uma string.",
+        LocalApiCode.invalidDescription: "Descricao deve ser uma string.",
+        LocalApiCode.categoryNotFound: "Categoria nao encontrada.",
+        LocalApiCode.isNotSubcategory: "Id de subcategoria nao é uma subcategoria do id de categoria fornecido ou a subcategoria não existe.",
         LocalApiCode.ticketNotFound: "Ticket nao encontrado.",
-        LocalApiCode.invalidSubcategory: "id da subcategoria nao existe.",
+        LocalApiCode.invalidSubcategory: "Id da subcategoria nao existe.",
         LocalApiCode.invalidSeverity: "Level de seriedade nao corresponde a dados existentes e nao pode ser 1"
     },
 }

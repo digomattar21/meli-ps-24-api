@@ -16,5 +16,19 @@ class Ticket(db.Model):
     subcategory = db.relationship('Category', foreign_keys=[subcategory_id])
     severity = db.relationship('Severity', backref=db.backref('tickets', lazy=True))
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "category_id": self.category_id,
+            "subcategory_id": self.subcategory_id,
+            "severity_id": self.severity_id,
+            "created_at": self.created_at.isoformat(),
+            "category": self.category.name,
+            "subcategory": self.subcategory.name if self.subcategory else None,
+            "severity": self.severity.level
+        }
+
     def __repr__(self):
         return f'<Ticket {self.title}>'
