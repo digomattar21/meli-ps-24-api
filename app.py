@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_migrate import Migrate
 from routes.public import routes as publicRoutes
 from utils.apiMessages import errorMessage, LocalApiCode
 from heart.core.extensions import db  
@@ -18,8 +19,10 @@ def create_app():
         app.config.from_object('config.TestingConfig')
     else:
         app.config.from_object('config.ProductionConfig')
-
+        
     db.init_app(app)
+    
+    Migrate(app, db)
 
     for route in publicRoutes:
         app.add_url_rule(

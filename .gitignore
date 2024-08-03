@@ -122,3 +122,5 @@ dmypy.json
 *.tar.gz
 *.egg-info/
 build/
+migrations/
+

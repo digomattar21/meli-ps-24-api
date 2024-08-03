@@ -1,7 +1,7 @@
+import random
 from heart.server.controller import BaseController
 from gateways.ticket import TicketGateway
-from gateways.category import CategoryGateway
-from gateways.severity import SeverityGateway
+from gateways.user import UserGateway
 from middlemans.ticket import verifyTicketGet, verifyTicketPost, verifyTicketPatch, verifyTicketDelete
 from utils.apiMessages import errorMessage, LocalApiCode
 class TicketController(BaseController):
@@ -25,12 +25,26 @@ class TicketController(BaseController):
         subcategory_id = data.get('subcategory_id')
         severity_level = data.get('severity')
 
+        users = UserGateway.get_all_users()
+
+        min_tickets = float('inf')
+        selected_user = None
+
+        for user in users:
+            tickets = TicketGateway.get_by_user_id(user['id'])
+            ticket_count = len(tickets)
+
+            if ticket_count < min_tickets or (ticket_count == min_tickets and random.choice([True, False])):
+                min_tickets = ticket_count
+                selected_user = user
+
         new_ticket = TicketGateway.create(
             title=title,
             description=description,
             category_id=category_id,
             subcategory_id=subcategory_id,
-            severity_id=severity_level
+            severity_id=severity_level,
+            user_id=selected_user['id'] if selected_user else None 
         )
 
         return self.sendJson({"ticket": new_ticket.to_dict()})

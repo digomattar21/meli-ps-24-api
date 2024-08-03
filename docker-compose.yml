@@ -22,5 +22,15 @@ services:
     ports:
       - "5000:5000"
 
+  migrate:
+    build: .
+    command: flask db upgrade
+    environment:
+      FLASK_APP: app.py
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
 volumes:
   postgres_data:
