@@ -1,17 +1,24 @@
 from models.category import Category
 from heart.core.extensions import db
+from sqlalchemy.exc import IntegrityError
 
 class CategoryGateway:
 
     @classmethod
     def create(cls, name, parent_id=None):
         category = Category(name=name, parent_id=parent_id)
-        db.session.add(category)
-        db.session.commit()
-        return category
+        try:
+            db.session.add(category)
+            db.session.commit()
+            return category
+        except IntegrityError:
+            db.session.rollback()  
+            return None
 
     @classmethod
     def get_by_id(cls, id):
+        if id is None:
+            return None
         return Category.query.get(id)
 
     @classmethod
@@ -24,6 +31,8 @@ class CategoryGateway:
 
     @classmethod
     def update(cls, id, **kwargs):
+        if id is None:
+            return None
         category = cls.get_by_id(id)
         if category:
             for key, value in kwargs.items():
@@ -34,6 +43,8 @@ class CategoryGateway:
 
     @classmethod
     def delete(cls, id):
+        if id is None:
+            return None
         category = cls.get_by_id(id)
         if category:
             db.session.delete(category)

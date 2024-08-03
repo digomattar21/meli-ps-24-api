@@ -22,8 +22,11 @@ def create_app():
     db.init_app(app)
 
     for route in publicRoutes:
-        app.add_url_rule(rule=route.path, view_func=route.handler.as_view(route.name))
-
+        app.add_url_rule(
+            rule=route.path, 
+            view_func=route.handler.as_view(route.name), 
+            methods=route.methods
+        )
     app.register_error_handler(404, _notFound)
     
     with app.app_context():
