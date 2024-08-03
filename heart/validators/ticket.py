@@ -1,4 +1,4 @@
-ticketTypes = {
+TICKET_TYPES = {
     "title": str,
     "description": str,
     "severity": {

@@ -1,4 +1,4 @@
-def checkFieldType(param, value, expected_type):
+def check_field_type(param, value, expected_type):
     if isinstance(expected_type, type):
         if not isinstance(value, expected_type):
             return False, f"Parameter {param} is expected to be of type {expected_type.__name__}, but got {type(value).__name__}"

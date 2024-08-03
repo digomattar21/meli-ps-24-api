@@ -1,7 +1,7 @@
-from utils.apiMessages import errorMessage, LocalApiCode
+from utils.apiMessages import error_message, LocalApiCode
 
 
-def verifyJson(json, requiredParameters=None, optionalParameters=None, errorCode=LocalApiCode.invalidJson):
+def verify_json(json, requiredParameters=None, optionalParameters=None, errorCode=LocalApiCode.invalidJson):
     if requiredParameters is None:
         requiredParameters = []
     if optionalParameters is None:
@@ -9,12 +9,12 @@ def verifyJson(json, requiredParameters=None, optionalParameters=None, errorCode
 
     requiredParameters = set(requiredParameters)
     if not isinstance(json, dict):
-        return [errorMessage(errorCode)]
+        return [error_message(errorCode)]
     
     if requiredParameters - set(json):
-        return [errorMessage(errorCode)]
+        return [error_message(errorCode)]
 
     if set(json) - (requiredParameters | set(optionalParameters)):
-        return [errorMessage(errorCode)]
+        return [error_message(errorCode)]
     
     return []

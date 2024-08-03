@@ -1,40 +1,40 @@
 from heart.server.controller import BaseController
 from gateways.category import CategoryGateway
-from utils.apiMessages import errorMessage, LocalApiCode
-from middlemans.category import verifyCategoryGet, verifyCategoryPost, verifyCategoryPatch, verifyCategoryDelete
+from utils.apiMessages import error_message, LocalApiCode
+from middlemans.category import verify_category_get, verify_category_post, verify_category_patch, verify_category_delete
 
 class CategoryController(BaseController):
 
-    @verifyCategoryGet
+    @verify_category_get
     def get(self, category_id=None):
         if category_id:
             category = CategoryGateway.get_by_id(category_id)
             if category:
-                return self.sendJson({"category": category.to_dict(include_subcategories=True)})
-            return self.sendJson({"errors": [errorMessage(LocalApiCode.categoryNotFound)]})
+                return self.send_json({"category": category.to_dict(include_subcategories=True)})
+            return self.send_json({"errors": [error_message(LocalApiCode.categoryNotFound)]})
         
         categories = CategoryGateway.get_all()
-        return self.sendJson({"categories": [category.to_dict(include_subcategories=True) for category in categories]})
+        return self.send_json({"categories": [category.to_dict(include_subcategories=True) for category in categories]})
 
-    @verifyCategoryPost
+    @verify_category_post
     def post(self, **data):
         name = data.get('name')
         parent_id = data.get('parent_id')
 
         category = CategoryGateway.create(name=name, parent_id=parent_id)
         if category:
-            return self.sendJson({"category_id": category.id})
+            return self.send_json({"category_id": category.id})
         else:
-            return self.sendJson({"errors": [errorMessage(LocalApiCode.duplicateCategoryName)]})
+            return self.send_json({"errors": [error_message(LocalApiCode.duplicateCategoryName)]})
 
-    @verifyCategoryPatch
+    @verify_category_patch
     def patch(self, category_id, **data):
         category = CategoryGateway.update(category_id, **data)
         if category:
-            return self.sendJson({"category": category.to_dict()})
-        return self.sendJson({"errors": [errorMessage(LocalApiCode.categoryNotFound)]})
+            return self.send_json({"category": category.to_dict()})
+        return self.send_json({"errors": [error_message(LocalApiCode.categoryNotFound)]})
 
-    @verifyCategoryDelete
+    @verify_category_delete
     def delete(self, category_id):
         CategoryGateway.delete(category_id)
-        return self.sendJson({"message": "Category deleted successfully"})
+        return self.send_json({"message": "Category deleted successfully"})

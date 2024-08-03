@@ -1,6 +1,6 @@
 
 
-def errorMessage(code, message=None, language="portuguese"):
+def error_message(code, message=None, language="portuguese"):
     return {
         "code": code,
         "message": message or localApiMessage[language][code],

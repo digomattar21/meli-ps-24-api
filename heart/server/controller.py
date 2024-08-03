@@ -5,37 +5,37 @@ from flask import request, make_response
 
 class BaseController(MethodView):
 
-    def getBodyBytes(self):
+    def get_body_bytes(self):
         return request.get_data()
 
-    def getBody(self):
+    def get_body(self):
         return request.get_data().decode("utf-8")
 
-    def getJsonBody(self):
+    def get_json_body(self):
         try:
             return loads(request.get_data().decode("utf-8"))
         except:
             return {}
 
-    def getQuery(self):
+    def get_query(self):
         return request.args
 
-    def getParameter(self, parameter, default=""):
+    def get_parameter(self, parameter, default=""):
         return request.args.get(parameter, default)
 
-    def getHeaders(self):
+    def get_headers(self):
         return request.headers
 
-    def userAgent(self):
+    def user_agent(self):
         return request.headers.get("User-Agent")
 
-    def sendJson(self, obj, headers=None, status=None):
+    def send_json(self, obj, headers=None, status=None):
         headers = headers or {}
         headers.update({"Content-Type": "application/json"})
         status = status or (400 if "errors" in obj else 200)
-        return self.sendContent(content=dumps(obj), headers=headers, status=status)
+        return self.send_content(content=dumps(obj), headers=headers, status=status)
 
-    def sendContent(self, content="", headers=None, status=200):
+    def send_content(self, content="", headers=None, status=200):
         headers = headers or {}
         headers["Access-Control-Allow-Origin"] = "*"
         return make_response(content, status, headers)

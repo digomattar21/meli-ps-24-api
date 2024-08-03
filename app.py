@@ -2,12 +2,12 @@ import os
 from flask import Flask
 from flask_migrate import Migrate
 from routes.public import routes as publicRoutes
-from utils.apiMessages import errorMessage, LocalApiCode
+from utils.apiMessages import error_message, LocalApiCode
 from heart.core.extensions import db  
 from heart.core.seeder import seed_severities, seed_categories, seed_tickets
 
 def _notFound(error):
-    return {"errors": [errorMessage(LocalApiCode.unknownRoute)]}, 404
+    return {"errors": [error_message(LocalApiCode.unknownRoute)]}, 404
 
 def create_app():
     app = Flask(__name__)

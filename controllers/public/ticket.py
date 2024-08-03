@@ -2,22 +2,22 @@ import random
 from heart.server.controller import BaseController
 from gateways.ticket import TicketGateway
 from gateways.user import UserGateway
-from middlemans.ticket import verifyTicketGet, verifyTicketPost, verifyTicketPatch, verifyTicketDelete
-from utils.apiMessages import errorMessage, LocalApiCode
+from middlemans.ticket import verify_ticket_get, verify_ticket_post, verify_ticket_patch, verify_ticket_delete
+from utils.apiMessages import error_message, LocalApiCode
 class TicketController(BaseController):
     
-    @verifyTicketGet
+    @verify_ticket_get
     def get(self, ticket_id=None, **data):
         if ticket_id:
             ticket = TicketGateway.get_by_id(ticket_id)
             if ticket:
-                return self.sendJson({"ticket": ticket.to_dict()})
-            return self.sendJson({"errors": [errorMessage(LocalApiCode.ticketNotFound)]})
+                return self.send_json({"ticket": ticket.to_dict()})
+            return self.send_json({"errors": [error_message(LocalApiCode.ticketNotFound)]})
         
         tickets = TicketGateway.get_all()
-        return self.sendJson({"tickets": [ticket.to_dict() for ticket in tickets]})
+        return self.send_json({"tickets": [ticket.to_dict() for ticket in tickets]})
 
-    @verifyTicketPost
+    @verify_ticket_post
     def post(self, **data):
         title = data.get('title')
         description = data.get('description')
@@ -47,17 +47,17 @@ class TicketController(BaseController):
             user_id=selected_user['id'] if selected_user else None 
         )
 
-        return self.sendJson({"ticket": new_ticket.to_dict()})
+        return self.send_json({"ticket": new_ticket.to_dict()})
 
-    @verifyTicketPatch
+    @verify_ticket_patch
     def patch(self, ticket_id, **data):
         updated_ticket = TicketGateway.update(ticket_id, **data)
         if updated_ticket:
-            return self.sendJson({"ticket": updated_ticket.to_dict()})
+            return self.send_json({"ticket": updated_ticket.to_dict()})
         
-        return self.sendJson({"errors": [errorMessage(LocalApiCode.internalError)]})
+        return self.send_json({"errors": [error_message(LocalApiCode.internalError)]})
 
-    @verifyTicketDelete
+    @verify_ticket_delete
     def delete(self, ticket_id):
         TicketGateway.delete(ticket_id)
-        return self.sendJson({"message": "Ticket deleted successfully"})
+        return self.send_json({"message": "Ticket deleted successfully"})
