@@ -3,6 +3,8 @@ class Config:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JSONPLACEHOLDER_BASE_URL = 'https://jsonplaceholder.typicode.com'
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

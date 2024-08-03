@@ -10,8 +10,8 @@ class Ticket(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     subcategory_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=True)
     severity_id = db.Column(db.Integer, db.ForeignKey('severities.id'), nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-
     category = db.relationship('Category', foreign_keys=[category_id])
     subcategory = db.relationship('Category', foreign_keys=[subcategory_id])
     severity = db.relationship('Severity', backref=db.backref('tickets', lazy=True))
@@ -27,7 +27,8 @@ class Ticket(db.Model):
             "created_at": self.created_at.isoformat(),
             "category": self.category.name,
             "subcategory": self.subcategory.name if self.subcategory else None,
-            "severity": self.severity.level
+            "severity": self.severity.level,
+            "user_id": self.user_id,
         }
 
     def __repr__(self):
