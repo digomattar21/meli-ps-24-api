@@ -1,6 +1,7 @@
-from json import dumps, loads
+from json import JSONDecodeError, dumps, loads
+
+from flask import make_response, request
 from flask.views import MethodView
-from flask import request, make_response
 
 
 class BaseController(MethodView):
@@ -14,7 +15,7 @@ class BaseController(MethodView):
     def get_json_body(self):
         try:
             return loads(request.get_data().decode("utf-8"))
-        except:
+        except JSONDecodeError:
             return {}
 
     def get_query(self):

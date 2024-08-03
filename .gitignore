@@ -116,7 +116,7 @@ dmypy.json
 *.pid
 *.log
 
-# Ignore Docker files if you're building Python packages
+# Ignore Docker files if you"re building Python packages
 # and you do not want the temporary build artifacts to be part of your repository
 *.tgz
 *.tar.gz

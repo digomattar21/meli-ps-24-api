@@ -1,5 +1,6 @@
-from models.severity import Severity
 from heart.core.extensions import db
+from models.severity import Severity
+
 
 class SeverityGateway:
 
@@ -13,7 +14,7 @@ class SeverityGateway:
     @classmethod
     def get_by_id(cls, id):
         return Severity.query.get(id)
-    
+
     @classmethod
     def get_by_level(cls, level):
         return Severity.query.filter_by(level=level).first()

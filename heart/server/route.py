@@ -1,5 +1,6 @@
 from re import sub
 
+
 class Route:
     def __init__(self, path, handler, methods=None):
         self.handler = handler
