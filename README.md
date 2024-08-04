@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a [brief description of your project], built using Python and Flask. The application is containerized using Docker and Docker Compose, ensuring a consistent development and production environment.
+This project is a Ticket Management API built with Python and Flask. It provides CRUD operations for tickets and categories, integrates with an external API for user management, and ensures data integrity through validation. 
 
 ## Installation and Setup
 
