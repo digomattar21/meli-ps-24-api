@@ -1,5 +1,4 @@
 from gateways.category import CategoryGateway
-from gateways.ticket import TicketGateway
 from heart.structures.verify import verify_json
 from heart.validators.category import CATEGORY_TYPES
 from utils.apiMessages import LocalApiCode, error_message
@@ -15,39 +14,14 @@ def verify_category_get(next):
     return decorator
 
 
-def verify_category_delete(next):
-    def decorator(self, category_id):
+def verify_category_exists(next):
+    def decorator(self, category_id=None, **data):
         category = CategoryGateway.get_by_id(category_id)
         if not category:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.categoryNotFound)]}
             )
-
-        ticketsInCategory = TicketGateway.get_by_category_id(category_id=category.id)
-        categoryHasSubcategories = CategoryGateway.get_by_parent_id(
-            parent_id=category.id
-        )
-
-        if ticketsInCategory:
-            return self.send_json(
-                {"errors": error_message(LocalApiCode.categoryHasTickets)}
-            )
-
-        if category.parent_id:  # if this is a subcategory, else avoid extra query
-            ticketsinSubcategory = TicketGateway.get_by_subcategory_id(
-                subcategory_id=category.id
-            )
-            if ticketsinSubcategory:
-                return self.send_json(
-                    {"errors": error_message(LocalApiCode.subcategoryHasTickets)}
-                )
-
-        if categoryHasSubcategories:
-            return self.send_json(
-                {"errors": error_message(LocalApiCode.categoryHasSubcategories)}
-            )
-
-        return next(self, category_id=category_id)
+        return next(self, category_id=category_id, **data)
 
     return decorator
 
@@ -60,12 +34,6 @@ def verify_category_patch(next):
                 {"errors": [error_message(LocalApiCode.emptyRequest)]}
             )
 
-        category = CategoryGateway.get_by_id(category_id)
-        if not category:
-            return self.send_json(
-                {"errors": [error_message(LocalApiCode.categoryNotFound)]}
-            )
-
         errors = verify_json(
             json=body, requiredParameters=[], optionalParameters=["name", "parent_id"]
         )
@@ -74,28 +42,9 @@ def verify_category_patch(next):
             return self.send_json({"errors": errors})
 
         if "name" in body:
-            if body["name"] is None:
-                return self.send_json(
-                    {"errors": [error_message(LocalApiCode.invalidCategoryName)]}
-                )
-            already_exists = CategoryGateway.get_by_name(body["name"])
-            if already_exists:
-                return self.send_json(
-                    {"errors": [error_message(LocalApiCode.duplicateCategoryName)]}
-                )
-
             data["name"] = body["name"]
-
         if "parent_id" in body:
-            if body["parent_id"] in [None, False]:
-                data["parent_id"] = None
-            else:
-                parent_category = CategoryGateway.get_by_id(body["parent_id"])
-                if not parent_category:
-                    return self.send_json(
-                        {"errors": [error_message(LocalApiCode.invalidParentCategory)]}
-                    )
-                data["parent_id"] = body["parent_id"]
+            data["parent_id"] = body["parent_id"]
 
         return next(self, category_id=category_id, **data)
 
@@ -125,13 +74,6 @@ def verify_category_post(next):
 
         if errors:
             return self.send_json({"errors": errors})
-
-        if "parent_id" in body:
-            parent_category = CategoryGateway.get_by_id(body["parent_id"])
-            if not parent_category:
-                return self.send_json(
-                    {"errors": [error_message(LocalApiCode.invalidParentCategory)]}
-                )
 
         data.update(
             {

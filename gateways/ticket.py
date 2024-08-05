@@ -45,7 +45,7 @@ class TicketGateway:
 
     @classmethod
     def get_by_subcategory_id(cls, subcategory_id):
-        return Ticket.query.filter_by(subcategory_id=subcategory_id)
+        return Ticket.query.filter_by(subcategory_id=subcategory_id).all()
 
     @classmethod
     def get_all(cls):

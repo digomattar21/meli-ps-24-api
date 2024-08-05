@@ -1,5 +1,4 @@
 from gateways.severity import SeverityGateway
-from gateways.ticket import TicketGateway
 from heart.structures.verify import verify_json
 from heart.validators.severity import SEVERITY_TYPES
 from utils.apiMessages import LocalApiCode, error_message
@@ -15,21 +14,14 @@ def verify_severity_get(next):
     return decorator
 
 
-def verify_severity_delete(next):
-    def decorator(self, severity_id):
+def verify_severity_exists(next):
+    def decorator(self, severity_id=None, **data):
         severity = SeverityGateway.get_by_id(severity_id)
         if not severity:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.severityNotFound)]}
             )
-
-        tickets_with_severity = TicketGateway.get_by_severity_id(severity_id)
-        if tickets_with_severity:
-            return self.send_json(
-                {"errors": [error_message(LocalApiCode.severityInUse)]}
-            )
-
-        return next(self, severity_id=severity_id)
+        return next(self, severity_id=severity_id, **data)
 
     return decorator
 
@@ -40,12 +32,6 @@ def verify_severity_patch(next):
         if not body:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.emptyRequest)]}
-            )
-
-        severity = SeverityGateway.get_by_id(severity_id)
-        if not severity:
-            return self.send_json(
-                {"errors": [error_message(LocalApiCode.severityNotFound)]}
             )
 
         errors = verify_json(
@@ -59,19 +45,6 @@ def verify_severity_patch(next):
         if not isinstance(level, int) or level not in [1, 2, 3, 4]:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.invalidSeverityLevel)]}
-            )
-
-        if level == 1:
-            tickets_with_severity = TicketGateway.get_by_severity_id(severity_id)
-            if tickets_with_severity:
-                return self.send_json(
-                    {"errors": [error_message(LocalApiCode.severityLevelOneInUse)]}
-                )
-
-        severity = SeverityGateway.get_by_level(level=level)
-        if severity:
-            return self.send_json(
-                {"errors": error_message(LocalApiCode.duplicateSeverityLevel)}
             )
 
         data.update(
@@ -104,26 +77,15 @@ def verify_severity_post(next):
         if errors:
             return self.send_json({"errors": errors})
 
-        errors = validate_severity_fields(body)
-
-        if errors:
-            return self.send_json({"errors": errors})
-
         level = body.get("level")
         if not isinstance(level, int) or level not in [1, 2, 3, 4]:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.invalidSeverityLevel)]}
             )
 
-        severity = SeverityGateway.get_by_level(level=level)
-        if severity:
-            return self.send_json(
-                {"errors": error_message(LocalApiCode.duplicateSeverityLevel)}
-            )
-
         data.update(
             {
-                "level": body["level"],
+                "level": level,
             }
         )
 

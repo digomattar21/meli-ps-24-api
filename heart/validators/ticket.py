@@ -1,7 +1,7 @@
 TICKET_TYPES = {
     "title": str,
     "description": str,
-    "severity_id": {"enum": [1, 2, 3, 4]},
+    "severity_id": int,
     "category_id": int,
     "subcategory_id": int,
 }
