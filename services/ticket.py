@@ -60,6 +60,8 @@ class TicketService:
     @classmethod
     def update_ticket(cls, ticket_id, **data):
         ticket = TicketGateway.get_by_id(ticket_id)
+        if not ticket:
+            return {"errors": [error_message(LocalApiCode.ticketNotFound)]}
         if "category_id" in data:
             category = CategoryGateway.get_by_id(data["category_id"])
             if not category:

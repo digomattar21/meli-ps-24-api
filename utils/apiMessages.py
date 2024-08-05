@@ -68,7 +68,7 @@ localApiMessage = {
             "Parent category with this id does not exist."
         ),
         LocalApiCode.invalidCategoryName: "Category name must be a string.",
-        LocalApiCode.invalidTitle: "Title must be a string.",
+        LocalApiCode.invalidTitle: "Title must be a string and must contain content.",
         LocalApiCode.invalidDescription: "Description must be a string.",
         LocalApiCode.isNotSubcategory: (
             "Subcategory id provided is not a subcategory of the category "
@@ -104,7 +104,7 @@ localApiMessage = {
         LocalApiCode.invalidParentCategory: "Categoria parente com esse id nao existe.",
         LocalApiCode.duplicateCategoryName: "Categoria com esse nome ja existe.",
         LocalApiCode.invalidCategoryName: "Nome da categoria deve ser uma string.",
-        LocalApiCode.invalidTitle: "Titulo deve ser uma string.",
+        LocalApiCode.invalidTitle: "Titulo deve ser uma string e deve conter conteudo.",
         LocalApiCode.invalidDescription: "Descricao deve ser uma string.",
         LocalApiCode.categoryNotFound: "Categoria nao encontrada.",
         LocalApiCode.invalidSeverityLevel: "Nível de severidade deve ser 1,2,3 ou 4",
