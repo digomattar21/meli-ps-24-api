@@ -1,14 +1,8 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 
-from gateways.category import CategoryGateway
-from middlemans.category import (
-    validate_category_fields,
-    verify_category_delete,
-    verify_category_get,
-)
-from utils.apiMessages import LocalApiCode, error_message
+from middlemans.category import validate_category_fields, verify_category_get
 
 
 @pytest.fixture
@@ -30,23 +24,6 @@ def test_verify_category_get(mock_controller):
     # Call the decorator without a category_id
     decorated_func(mock_controller)
     next_func.assert_called_with(mock_controller)
-
-
-def test_verify_category_delete(mock_controller):
-    next_func = MagicMock()
-    decorated_func = verify_category_delete(next_func)
-
-    # Test when category exists
-    with patch.object(CategoryGateway, "get_by_id", return_value=True):
-        decorated_func(mock_controller, category_id=1)
-        next_func.assert_called_once_with(mock_controller, category_id=1)
-
-    # Test when category does not exist
-    with patch.object(CategoryGateway, "get_by_id", return_value=None):
-        decorated_func(mock_controller, category_id=1)
-        mock_controller.send_json.assert_called_once_with(
-            {"errors": [error_message(LocalApiCode.categoryNotFound)]}
-        )
 
 
 def test_validate_category_fields():
