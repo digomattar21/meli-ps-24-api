@@ -41,6 +41,11 @@ def verify_category_patch(next):
         if errors:
             return self.send_json({"errors": errors})
 
+        errors = validate_category_fields(body)
+
+        if errors:
+            return self.send_json({"errors": errors})
+
         if "name" in body:
             data["name"] = body["name"]
         if "parent_id" in body:

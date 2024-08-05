@@ -2,6 +2,7 @@ import pytest
 
 from app import create_app
 from heart.core.extensions import db
+from utils.apiMessages import LocalApiCode, error_message
 
 from ..bodies import invalid_ticket_bodies
 
@@ -42,6 +43,7 @@ def test_create_ticket(client):
 
 
 def test_update_ticket(client):
+    # Test successful update of a ticket
     response = client.patch(
         "/ticket/1",
         json={
@@ -54,6 +56,50 @@ def test_update_ticket(client):
     )
     assert response.status_code == 200
     assert response.json["ticket"]["title"] == "Test Ticket 2"
+
+    # Test when category or subcategory doesn't exist
+    response = client.patch(
+        "/ticket/1",
+        json={
+            "category_id": 999,
+            "subcategory_id": 999,
+        },
+    )
+    assert response.status_code == 400
+    assert "errors" in response.json
+    assert (
+        response.json["errors"][0]["code"] == "categoryNotFound"
+        or response.json["errors"][0]["code"] == "invalidSubcategory"
+        or response.json["errors"][0]["code"] == "subcategoryNotFound"
+    )
+
+    # Test updating with empty JSON body
+    response = client.patch("/ticket/1", json={})
+    assert response.status_code == 400
+    assert response.json["errors"] == [error_message(LocalApiCode.emptyRequest)]
+
+    # Test updating a ticket with some fields as None (should ignore None values)
+    response = client.patch(
+        "/ticket/1",
+        json={
+            "title": None,
+            "description": "Updated description",
+        },
+    )
+    assert response.status_code == 400
+    assert response.json["errors"] == [error_message(LocalApiCode.invalidTitle)]
+
+    # Test when subcategory is not a child of the given category
+    response = client.patch(
+        "/ticket/1",
+        json={
+            "category_id": 1,
+            "subcategory_id": 10,
+        },
+    )
+    assert response.status_code == 400
+    assert "errors" in response.json
+    assert response.json["errors"][0]["code"] == "isNotSubcategory"
 
 
 def test_get_ticket(client):

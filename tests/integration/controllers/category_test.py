@@ -2,6 +2,7 @@ import pytest
 
 from app import create_app
 from heart.core.extensions import db
+from utils.apiMessages import LocalApiCode, error_message
 
 from ..bodies import invalid_category_bodies
 
@@ -48,6 +49,22 @@ def test_get_category_by_id(client):
 
 
 def test_update_category(client):
-    response = client.patch("/category/1", json={"name": "Teste2"})
+    response = client.patch("/category/8", json={"name": "Teste2", "parent_id": 2})
     assert response.status_code == 200
     assert response.json["category"]["name"] == "Teste2"
+
+
+def test_update_category_errors(client):
+    # Case with invalid parent id
+    response = client.patch("/category/1", json={"parent_id": 100})
+    assert response.status_code == 400
+    assert response.json["errors"] == [
+        error_message(LocalApiCode.invalidParentCategory)
+    ]
+
+    # Case with existing invalid parent_id
+    response2 = client.patch("/category/1", json={"parent_id": "teste"})
+    assert response2.status_code == 400
+    assert response2.json["errors"] == [
+        "Parameter parent_id is expected to be of type int, but got str"
+    ]
