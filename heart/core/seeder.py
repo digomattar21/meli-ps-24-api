@@ -56,7 +56,7 @@ def seed_tickets():
         {
             "title": "VPN not connecting",
             "description": "User cannot connect to the VPN.",
-            "severity": 2,
+            "severity_id": 2,
             "category_id": 1,
             "subcategory_id": 6,
             "user_id": 2,
@@ -64,7 +64,7 @@ def seed_tickets():
         {
             "title": "Software installation issue",
             "description": "Error while installing software.",
-            "severity": 3,
+            "severity_id": 3,
             "category_id": 1,
             "subcategory_id": 6,
             "user_id": 1,
@@ -78,7 +78,7 @@ def seed_tickets():
             new_ticket = Ticket(
                 title=ticket["title"],
                 description=ticket["description"],
-                severity_id=ticket["severity"],
+                severity_id=ticket["severity_id"],
                 category_id=ticket["category_id"],
                 subcategory_id=ticket["subcategory_id"],
                 user_id=ticket["user_id"],

@@ -24,6 +24,10 @@ class CategoryGateway:
         return Category.query.get(id)
 
     @classmethod
+    def get_by_parent_id(cls, parent_id):
+        return Category.query.filter_by(parent_id=parent_id).all()
+
+    @classmethod
     def get_all(cls):
         return Category.query.all()
 

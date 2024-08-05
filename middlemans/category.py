@@ -1,4 +1,5 @@
 from gateways.category import CategoryGateway
+from gateways.ticket import TicketGateway
 from heart.structures.verify import verify_json
 from heart.validators.category import CATEGORY_TYPES
 from utils.apiMessages import LocalApiCode, error_message
@@ -20,6 +21,30 @@ def verify_category_delete(next):
         if not category:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.categoryNotFound)]}
+            )
+
+        ticketsInCategory = TicketGateway.get_by_category_id(category_id=category.id)
+        categoryHasSubcategories = CategoryGateway.get_by_parent_id(
+            parent_id=category.id
+        )
+
+        if ticketsInCategory:
+            return self.send_json(
+                {"errors": error_message(LocalApiCode.categoryHasTickets)}
+            )
+
+        if category.parent_id:  # if this is a subcategory, else avoid extra query
+            ticketsinSubcategory = TicketGateway.get_by_subcategory_id(
+                subcategory_id=category.id
+            )
+            if ticketsinSubcategory:
+                return self.send_json(
+                    {"errors": error_message(LocalApiCode.subcategoryHasTickets)}
+                )
+
+        if categoryHasSubcategories:
+            return self.send_json(
+                {"errors": error_message(LocalApiCode.categoryHasSubcategories)}
             )
 
         return next(self, category_id=category_id)

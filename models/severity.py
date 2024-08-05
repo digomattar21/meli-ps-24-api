@@ -10,3 +10,10 @@ class Severity(db.Model):
 
     def __repr__(self):
         return f"<Severity {self.level} - {self.description}>"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "level": self.level,
+            "description": self.description,
+        }

@@ -36,6 +36,18 @@ class TicketGateway:
         return Ticket.query.filter_by(user_id=user_id).all()
 
     @classmethod
+    def get_by_severity_id(cls, severity_id):
+        return Ticket.query.filter_by(severity_id=severity_id).all()
+
+    @classmethod
+    def get_by_category_id(cls, category_id):
+        return Ticket.query.filter_by(category_id=category_id).all()
+
+    @classmethod
+    def get_by_subcategory_id(cls, subcategory_id):
+        return Ticket.query.filter_by(subcategory_id=subcategory_id)
+
+    @classmethod
     def get_all(cls):
         return Ticket.query.all()
 
