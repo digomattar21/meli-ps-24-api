@@ -75,6 +75,11 @@ def verify_category_post(next):
         if errors:
             return self.send_json({"errors": errors})
 
+        if body["name"] == "" or not body["name"]:
+            return self.send_json(
+                {"errors": [error_message(LocalApiCode.invalidCategoryName)]}
+            )
+
         data.update(
             {
                 "name": body["name"],

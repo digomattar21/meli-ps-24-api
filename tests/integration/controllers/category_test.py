@@ -3,6 +3,8 @@ import pytest
 from app import create_app
 from heart.core.extensions import db
 
+from ..bodies import invalid_category_bodies
+
 
 @pytest.fixture
 def client():
@@ -22,6 +24,16 @@ def test_create_category(client):
     assert response.status_code == 200
     category_id = response.json["category_id"]
     assert isinstance(category_id, int)
+
+
+def test_create_category_with_invalid_data(client):
+    for body, expected_error in invalid_category_bodies:
+        response = client.post("/category", json=body)
+        if response.json != expected_error:
+            print(body)
+            print(response.json, expected_error)
+        assert response.status_code == 400
+        assert response.json == expected_error
 
 
 def test_get_category(client):

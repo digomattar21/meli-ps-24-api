@@ -3,6 +3,8 @@ import pytest
 from app import create_app
 from heart.core.extensions import db
 
+from ..bodies import invalid_severity_bodies
+
 
 @pytest.fixture
 def client():
@@ -25,6 +27,15 @@ def test_create_severity(client):
     assert response.status_code == 200
     severity_id = response.json["severity_id"]
     assert isinstance(severity_id, int)
+
+
+def test_create_severity_with_invalid_data(client):
+    for body, expected_error in invalid_severity_bodies:
+        response = client.post("/severity", json=body)
+        assert response.status_code == 400
+        if response.json != expected_error:
+            print(response.json, expected_error)
+        assert response.json == expected_error
 
 
 def test_get_severity(client):
