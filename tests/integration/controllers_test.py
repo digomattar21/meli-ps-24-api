@@ -23,9 +23,9 @@ def test_create_ticket(client):
         json={
             "title": "Test Ticket",
             "description": "This is a test ticket",
-            "severity": 2,
-            "category": 1,
-            "subcategory": 6,
+            "severity_id": 2,
+            "category_id": 1,
+            "subcategory_id": 6,
         },
     )
     assert response.status_code == 200
@@ -38,7 +38,7 @@ def test_update_ticket(client):
         json={
             "title": "Test Ticket 2",
             "description": "This is a test ticket",
-            "severity": 2,
+            "severity_id": 2,
             "category_id": 1,
             "subcategory_id": 7,
         },

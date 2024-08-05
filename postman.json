@@ -1,0 +1,1011 @@
+{
+	"info": {
+		"_postman_id": "1ef3aa0b-4ddd-4af0-a478-8dfa5447ad98",
+		"name": "MELI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33889526"
+	},
+	"item": [
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "GET ALL TICKETS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/ticket"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tickets\": [\n        {\n            \"id\": 1,\n            \"title\": \"VPN not connecting\",\n            \"description\": \"User cannot connect to the VPN.\",\n            \"category_id\": 1,\n            \"subcategory_id\": 6,\n            \"severity_id\": 2,\n            \"created_at\": \"2024-08-04T02:43:13.529567\",\n            \"category\": \"Hardware\",\n            \"subcategory\": \"Laptops\",\n            \"severity\": 2,\n            \"user_id\": 2\n        },\n        {\n            \"id\": 2,\n            \"title\": \"Software installation issue\",\n            \"description\": \"Error while installing software.\",\n            \"category_id\": 1,\n            \"subcategory_id\": 6,\n            \"severity_id\": 3,\n            \"created_at\": \"2024-08-04T02:43:13.529567\",\n            \"category\": \"Hardware\",\n            \"subcategory\": \"Laptops\",\n            \"severity\": 3,\n            \"user_id\": 1\n        }\n    ]\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"unknownRoute\",\n            \"message\": \"Rota não existe.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "GET TICKET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/ticket/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ticket\": {\n        \"id\": 1,\n        \"title\": \"VPN not connecting\",\n        \"description\": \"User cannot connect to the VPN.\",\n        \"category_id\": 1,\n        \"subcategory_id\": 6,\n        \"severity_id\": 2,\n        \"created_at\": \"2024-08-04T02:43:13.529567\",\n        \"category\": \"Hardware\",\n        \"subcategory\": \"Laptops\",\n        \"severity\": 2,\n        \"user_id\": 2\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket/1"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"ticketNotFound\",\n            \"message\": \"Ticket nao encontrado.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "CREATE TICKET",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Teste 1\",\n    \"description\": \"Testando descricao\",\n    \"severity_id\": 2,\n    \"category_id\": 1,\n    \"subcategory_id\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/ticket"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Teste 1\",\n    \"description\": \"Testando descricao\",\n    \"severity_id\": 4,\n    \"category_id\": 1,\n    \"subcategory_id\": 6\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/ticket"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ticket\": {\n        \"id\": 3,\n        \"title\": \"Teste 1\",\n        \"description\": \"Testando descricao\",\n        \"category_id\": 1,\n        \"subcategory_id\": 6,\n        \"severity_id\": 4,\n        \"created_at\": \"2024-08-04T21:55:38.761417\",\n        \"category\": \"Hardware\",\n        \"subcategory\": \"Laptops\",\n        \"severity\": 4,\n        \"user_id\": 10\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Teste 1\",\n    \"description\": \"Testando descricao\",\n    \"severity\": 4,\n    \"category\": 1,\n    \"subcategory\": 6\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/ticket"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"isNotSubcategory\",\n            \"message\": \"Id de subcategoria nao é uma subcategoria do id de categoria fornecido ou a subcategoria não existe.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "UPDATE TICKET",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Problem connectig to VPN\",\n    \"description\": \"There was a problem lorem ipsum\",\n    \"category_id\": 1,\n    \"subcategory_id\": 7,\n    \"severity_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/ticket/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"haha\",\n    \"description\": \"teste2\",\n    \"category_id\": 1,\n    \"subcategory_id\": 7,\n    \"severity\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/ticket/10"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ticket\": {\n        \"id\": 1,\n        \"title\": \"haha\",\n        \"description\": \"teste2\",\n        \"category_id\": 1,\n        \"subcategory_id\": 7,\n        \"severity_id\": 2,\n        \"created_at\": \"2024-08-04T02:43:13.529567\",\n        \"category\": \"Hardware\",\n        \"subcategory\": \"Desktops\",\n        \"severity\": 2,\n        \"user_id\": 2\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"haha\",\n    \"description\": \"teste2\",\n    \"category_id\": 1,\n    \"subcategory_id\": 7,\n    \"severity\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/ticket/1"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"invalidSeverity\",\n            \"message\": \"Level de seriedade nao corresponde a dados existentes e nao pode ser 1.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE TICKET",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BASE_URL}}/ticket/2"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Ticket deleted successfully\"\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/ticket/1"
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"ticketNotFound\",\n            \"message\": \"Ticket nao encontrado.\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Healthcheck",
+			"item": [
+				{
+					"name": "CHECK HEALTH",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/healthcheck"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/healthcheck"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"idle\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GET ALL CATEGORIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/category"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"categories\": [\n        {\n            \"id\": 1,\n            \"name\": \"Hardware\",\n            \"parent_id\": null,\n            \"subcategories\": [\n                {\n                    \"id\": 6,\n                    \"name\": \"Laptops\",\n                    \"parent_id\": 1,\n                    \"subcategories\": []\n                },\n                {\n                    \"id\": 7,\n                    \"name\": \"Desktops\",\n                    \"parent_id\": 1,\n                    \"subcategories\": []\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Software\",\n            \"parent_id\": null,\n            \"subcategories\": [\n                {\n                    \"id\": 8,\n                    \"name\": \"Operating Systems\",\n                    \"parent_id\": 2,\n                    \"subcategories\": []\n                },\n                {\n                    \"id\": 9,\n                    \"name\": \"Applications\",\n                    \"parent_id\": 2,\n                    \"subcategories\": []\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Networking\",\n            \"parent_id\": null,\n            \"subcategories\": [\n                {\n                    \"id\": 10,\n                    \"name\": \"VPN\",\n                    \"parent_id\": 3,\n                    \"subcategories\": []\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Security\",\n            \"parent_id\": null,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 5,\n            \"name\": \"User Management\",\n            \"parent_id\": null,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 6,\n            \"name\": \"Laptops\",\n            \"parent_id\": 1,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Desktops\",\n            \"parent_id\": 1,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Operating Systems\",\n            \"parent_id\": 2,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Applications\",\n            \"parent_id\": 2,\n            \"subcategories\": []\n        },\n        {\n            \"id\": 10,\n            \"name\": \"VPN\",\n            \"parent_id\": 3,\n            \"subcategories\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"unknownRoute\",\n            \"message\": \"Rota não existe.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "GET CATEGORY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/category/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"category\": {\n        \"id\": 1,\n        \"name\": \"Hardware\",\n        \"parent_id\": null,\n        \"subcategories\": [\n            {\n                \"id\": 6,\n                \"name\": \"Laptops\",\n                \"parent_id\": 1,\n                \"subcategories\": []\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Desktops\",\n                \"parent_id\": 1,\n                \"subcategories\": []\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"categoryNotFound\",\n            \"message\": \"Categoria nao encontrada.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "CREATE CATEGORY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Problema na ventoinha 2\",\n    \"parent_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/category"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Problema na ventoinha\",\n    \"parent_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"category_id\": 11\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Problema na ventoinha\",\n    \"parent_id\": 1\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/category"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"duplicateCategoryName\",\n            \"message\": \"Categoria com esse nome ja existe.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "UPDATE CATEGORY",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Problema 5\",\n    \"parent_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/category/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"pobrema1\",\n    \"parent_id\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/category/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"category\": {\n        \"id\": 1,\n        \"name\": \"Problema 1\",\n        \"parent_id\": 2\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"pobrema1\",\n    \"parent_id\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/category/1"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"invalidParentCategory\",\n            \"message\": \"Categoria parente com esse id nao existe.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE CATEGORY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BASE_URL}}/category/2"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/category/2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Category deleted successfully\"\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/category/2"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"categoryNotFound\",\n            \"message\": \"Categoria nao encontrada.\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Severity",
+			"item": [
+				{
+					"name": "GET ALL SEVERITIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/severity"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"severities\": [\n        {\n            \"id\": 1,\n            \"level\": 1,\n            \"description\": \"Issue High\"\n        },\n        {\n            \"id\": 2,\n            \"level\": 2,\n            \"description\": \"High\"\n        },\n        {\n            \"id\": 3,\n            \"level\": 3,\n            \"description\": \"Medium\"\n        },\n        {\n            \"id\": 4,\n            \"level\": 4,\n            \"description\": \"Low\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "GET SEVERITY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/severity/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"severity\": {\n        \"id\": 1,\n        \"level\": 1,\n        \"description\": \"Issue High\"\n    }\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"severityNotFound\",\n            \"message\": \"Severidade não encontrada.\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "CREATE SEVERITY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"level\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/severity"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"level\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/severity"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"severity_id\": 1\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{BASE_URL}}/severity"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"code\": \"duplicateSeverityLevel\",\n        \"message\": \"Seriedade com este nível já existe.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "UPDATE SEVERITY",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"level\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/severity/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"level\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/severity/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"level\": 1,\n    \"description\": \"Issue High\"\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"level\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/severity/1"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"code\": \"duplicateSeverityLevel\",\n        \"message\": \"Seriedade com este nível já existe.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE SEVERITY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BASE_URL}}/severity/1"
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/severity/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Severity deleted successfully\"\n}"
+						},
+						{
+							"name": "ERROR",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/severity/10"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"code\": \"severityNotFound\",\n            \"message\": \"Severidade não encontrada.\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:5000"
+		}
+	]
+}

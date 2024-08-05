@@ -121,9 +121,9 @@ The project includes both unit and integration tests to ensure the functionality
     {
       "title": "Issue with VPN",
       "description": "User cannot connect to VPN",
-      "severity": 2,
-      "category": 1,
-      "subcategory": 6
+      "severity_id": 2,
+      "category_id": 1,
+      "subcategory_id": 6
     }
     ```
 
@@ -135,7 +135,7 @@ The project includes both unit and integration tests to ensure the functionality
         "id": "integer",
         "title": "string",
         "description": "string",
-        "severity": "integer",
+        "severity_id": "integer",
         "category_id": "integer",
         "subcategory_id": "integer",
         "user_id": "integer",
@@ -155,9 +155,9 @@ The project includes both unit and integration tests to ensure the functionality
         {
       "title": "string",
       "description": "string",
-      "severity": "integer",
-      "category": "integer",
-      "subcategory": "integer"
+      "severity_id": "integer",
+      "category_id": "integer",
+      "subcategory_id": "integer"
     }
     ```
 
@@ -169,7 +169,7 @@ The project includes both unit and integration tests to ensure the functionality
         "id": "integer",
         "title": "string",
         "description": "string",
-        "severity": "integer",
+        "severity_id": "integer",
         "category_id": "integer",
         "subcategory_id": "integer",
         "user_id": "integer",
@@ -198,7 +198,7 @@ The project includes both unit and integration tests to ensure the functionality
         "id": "integer",
         "title": "string",
         "description": "string",
-        "severity": "integer",
+        "severity_id": "integer",
         "category_id": "integer",
         "subcategory_id": "integer",
         "user_id": "integer",
@@ -221,7 +221,7 @@ The project includes both unit and integration tests to ensure the functionality
           "id": "integer",
           "title": "string",
           "description": "string",
-          "severity": "integer",
+          "severity_id": "integer",
           "category_id": "integer",
           "subcategory_id": "integer",
           "user_id": "integer",
@@ -329,6 +329,96 @@ The project includes both unit and integration tests to ensure the functionality
       ]
     }
     ```
+
+#### 6.  Create a Severity
+
+- **Endpoint**: `POST /severity`
+- **Description**: Creates a new severity
+- **Request Body**:
+
+  ```json
+    {
+      "level": "integer"
+    }
+    ```
+
+- **Response**:
+    - Success (200)
+    ```json
+    {
+      "severity_id": "integer"
+    }
+    ```
+
+#### 7.  Update a Severity
+
+- **Endpoint**: `PATCH /severity/{id}`
+- **Description**: Updates an existing severity
+- **Request Body**:
+
+  ```json
+    {
+      "level": "integer"
+    }
+    ```
+
+- **Response**:
+    - Success (200)
+    ```json
+    {
+      "severity": {
+        "id": "integer",
+        "description": "string",
+        "level": "integer",
+      }
+    }
+    ```
+
+#### 8  Delete a everity
+
+- **Endpoint**: `DELETE /severity/{id}`
+- **Description**: Deletes an existing severity
+- **Response**:
+    - Success (200)
+
+
+#### 9  Get a Severity By ID
+
+- **Endpoint**: `GET /severity/{id}`
+- **Description**: Retrieves a severity by its ID
+- **Response**:
+    - Success (200)
+    ```json
+    {
+      "severity": {
+        "id": "integer",
+        "description": "string",
+        "level": "integer",
+      }
+    }
+    ```
+
+
+#### 10 Get All Severities
+
+- **Endpoint**: `GET /severity`
+- **Description**: Retrieves all severities
+- **Response**:
+    - Success (200)
+    ```json
+    {
+      "severities": [
+        {
+          "id": "integer",
+          "desription": "string",
+          "level": "integer",
+        },
+        
+      ]
+    }
+    ```
+
+
 
 
 

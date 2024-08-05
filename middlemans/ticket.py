@@ -51,7 +51,7 @@ def verify_ticket_patch(next):
                 "description",
                 "category_id",
                 "subcategory_id",
-                "severity",
+                "severity_id",
             ],
         )
 
@@ -89,11 +89,11 @@ def verify_ticket_patch(next):
                 )
             data["subcategory_id"] = body["subcategory_id"]
 
-        if "severity" in body:
-            severity = SeverityGateway.get_by_level(body["severity"])
+        if "severity_id" in body:
+            severity = SeverityGateway.get_by_level(body["severity_id"])
             if not severity:
                 return self.send_json(
-                    {"errors": [error_message(LocalApiCode.invalidSeverity)]}
+                    {"errors": [error_message(LocalApiCode.severityNotFound)]}
                 )
             if severity.level == 1:
                 return self.send_json(
@@ -133,9 +133,9 @@ def verify_ticket_post(next):
             requiredParameters=[
                 "title",
                 "description",
-                "severity",
-                "category",
-                "subcategory",
+                "severity_id",
+                "category_id",
+                "subcategory_id",
             ],
             optionalParameters=[],
         )
@@ -148,18 +148,25 @@ def verify_ticket_post(next):
         if errors:
             return self.send_json({"errors": errors})
 
-        if body["severity"] == 1:
+        severity = SeverityGateway.get_by_id(body["severity_id"])
+
+        if not severity:
+            return self.send_json(
+                {"errors": error_message(LocalApiCode.severityNotFound)}
+            )
+
+        if severity.level == 1:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.invalidSeverity)]}
             )
 
-        category = CategoryGateway.get_by_id(body["category"])
+        category = CategoryGateway.get_by_id(body["category_id"])
         if not category:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.categoryNotFound)]}
             )
 
-        subcategory = CategoryGateway.get_by_id(body["subcategory"])
+        subcategory = CategoryGateway.get_by_id(body["subcategory_id"])
         if not subcategory:
             return self.send_json(
                 {"errors": [error_message(LocalApiCode.invalidSubcategory)]}
@@ -174,9 +181,9 @@ def verify_ticket_post(next):
             {
                 "title": body["title"],
                 "description": body["description"],
-                "severity": body["severity"],
-                "category_id": body["category"],
-                "subcategory_id": body["subcategory"],
+                "severity_id": body["severity_id"],
+                "category_id": body["category_id"],
+                "subcategory_id": body["subcategory_id"],
             }
         )
 

@@ -33,7 +33,7 @@ class TicketController(BaseController):
         description = data.get("description")
         category_id = data.get("category_id")
         subcategory_id = data.get("subcategory_id")
-        severity_level = data.get("severity")
+        severity_id = data.get("severity_id")
 
         users = UserGateway.get_all_users()
 
@@ -55,7 +55,7 @@ class TicketController(BaseController):
             description=description,
             category_id=category_id,
             subcategory_id=subcategory_id,
-            severity_id=severity_level,
+            severity_id=severity_id,
             user_id=selected_user["id"] if selected_user else None,
         )
 
