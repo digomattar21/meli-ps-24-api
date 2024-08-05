@@ -55,16 +55,21 @@ def test_update_category(client):
 
 
 def test_update_category_errors(client):
-    # Case with invalid parent id
+    # Case with non existing parent id
     response = client.patch("/category/1", json={"parent_id": 100})
     assert response.status_code == 400
     assert response.json["errors"] == [
         error_message(LocalApiCode.invalidParentCategory)
     ]
 
-    # Case with existing invalid parent_id
+    # Case with invalid parent_id
     response2 = client.patch("/category/1", json={"parent_id": "teste"})
     assert response2.status_code == 400
     assert response2.json["errors"] == [
-        "Parameter parent_id is expected to be of type int, but got str"
+        error_message(LocalApiCode.invalidParentCategory)
     ]
+
+    # Case with invalid category name
+    response3 = client.patch("/category/1", json={"name": ""})
+    assert response3.status_code == 400
+    assert response3.json["errors"] == [error_message(LocalApiCode.invalidCategoryName)]

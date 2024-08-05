@@ -27,6 +27,7 @@ class LocalApiCode:
     subcategoryHasTickets = "subcategoryHasTickets"
     duplicateCategoryName = "duplicateCategoryName"
     invalidParentCategory = "invalidParentCategory"
+    invalidParentId = "invalidParentId"
     invalidCategoryName = "invalidCategoryName"
     invalidTitle = "invalidTitle"
     invalidDescription = "invalidDescription"
@@ -51,6 +52,7 @@ localApiMessage = {
         LocalApiCode.unauthenticated: "User is not authenticated.",
         LocalApiCode.invalidSecret: "Secret does not match server.",
         LocalApiCode.internalError: "Internal error occured, contact us.",
+        LocalApiCode.invalidParentId: "Parent id is not valid.",
         LocalApiCode.emptyRequest: "Request does not contain any content.",
         LocalApiCode.ticketNotFound: "Ticket not found.",
         LocalApiCode.categoryNotFound: "Category not found.",
@@ -67,9 +69,9 @@ localApiMessage = {
         LocalApiCode.invalidParentCategory: (
             "Parent category with this id does not exist."
         ),
-        LocalApiCode.invalidCategoryName: "Category name must be a string.",
+        LocalApiCode.invalidCategoryName: "Category name must be a string and contain a value.",
         LocalApiCode.invalidTitle: "Title must be a string and must contain content.",
-        LocalApiCode.invalidDescription: "Description must be a string.",
+        LocalApiCode.invalidDescription: "Description must be a string and contain a value.",
         LocalApiCode.isNotSubcategory: (
             "Subcategory id provided is not a subcategory of the category "
             "or it doesn't exist."
@@ -103,9 +105,10 @@ localApiMessage = {
         LocalApiCode.categoryHasSubcategories: "Há subcategorias que pertencem a esta categoria, delete-as.",
         LocalApiCode.invalidParentCategory: "Categoria parente com esse id nao existe.",
         LocalApiCode.duplicateCategoryName: "Categoria com esse nome ja existe.",
-        LocalApiCode.invalidCategoryName: "Nome da categoria deve ser uma string.",
+        LocalApiCode.invalidCategoryName: "Nome da categoria deve ser uma string e conter um valor.",
         LocalApiCode.invalidTitle: "Titulo deve ser uma string e deve conter conteudo.",
-        LocalApiCode.invalidDescription: "Descricao deve ser uma string.",
+        LocalApiCode.invalidParentId: "Parâmetro parent_id deve ser um int deve ser valido",
+        LocalApiCode.invalidDescription: "Descricao deve ser uma string e conter um valor.",
         LocalApiCode.categoryNotFound: "Categoria nao encontrada.",
         LocalApiCode.invalidSeverityLevel: "Nível de severidade deve ser 1,2,3 ou 4",
         LocalApiCode.severityNotFound: "Severidade não encontrada.",
