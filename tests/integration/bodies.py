@@ -79,3 +79,78 @@ invalid_category_bodies = [
         {"errors": ["Parameter parent_id is expected to be of type int, but got str"]},
     ),
 ]
+
+invalid_ticket_bodies = [
+    (
+        {},  # Empty body
+        {"errors": [error_message(LocalApiCode.emptyRequest, language="portuguese")]},
+    ),
+    (
+        {
+            "title": "",  # Empty title
+            "description": "This is a test ticket",
+            "severity_id": 2,
+            "category_id": 1,
+            "subcategory_id": 6,
+        },
+        {"errors": [error_message(LocalApiCode.invalidTitle, language="portuguese")]},
+    ),
+    (
+        {
+            "title": "Test Ticket",
+            "description": "",  # Empty description
+            "severity_id": 2,
+            "category_id": 1,
+            "subcategory_id": 6,
+        },
+        {
+            "errors": [
+                error_message(LocalApiCode.invalidDescription, language="portuguese")
+            ]
+        },
+    ),
+    (
+        {
+            "title": "Test Ticket",
+            "description": "This is a test ticket",
+            "severity_id": 99,  # Invalid severity_id
+            "category_id": 1,
+            "subcategory_id": 6,
+        },
+        {"errors": [error_message(LocalApiCode.severityNotFound)]},
+    ),
+    (
+        {
+            "title": "Test Ticket",
+            "description": "This is a test ticket",
+            "severity_id": 2,
+            "category_id": 99,  # Invalid category_id
+            "subcategory_id": 6,
+        },
+        {"errors": [error_message(LocalApiCode.categoryNotFound)]},
+    ),
+    (
+        {
+            "title": "Test Ticket",
+            "description": "This is a test ticket",
+            "severity_id": 2,
+            "category_id": 1,
+            "subcategory_id": 99,  # Invalid subcategory_id
+        },
+        {"errors": [error_message(LocalApiCode.invalidSubcategory)]},
+    ),
+    (
+        {
+            "title": "Test Ticket",
+            "description": "This is a test ticket",
+            "severity_id": "High",  # Invalid severity_id type
+            "category_id": 1,
+            "subcategory_id": 6,
+        },
+        {
+            "errors": [
+                "Parameter severity_id is expected to be of type int, but got str"
+            ]
+        },
+    ),
+]

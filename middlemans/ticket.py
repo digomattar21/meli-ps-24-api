@@ -82,6 +82,16 @@ def verify_ticket_post(next):
         if errors:
             return self.send_json({"errors": errors})
 
+        if body["title"] == "" or not body["title"]:
+            return self.send_json(
+                {"errors": [error_message(LocalApiCode.invalidTitle)]}
+            )
+
+        if body["description"] == "" or not body["description"]:
+            return self.send_json(
+                {"errors": [error_message(LocalApiCode.invalidDescription)]}
+            )
+
         data.update(
             {
                 "title": body["title"],

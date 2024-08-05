@@ -3,6 +3,8 @@ import pytest
 from app import create_app
 from heart.core.extensions import db
 
+from ..bodies import invalid_ticket_bodies
+
 
 @pytest.fixture
 def client():
@@ -15,6 +17,13 @@ def client():
         yield client
         with app.app_context():
             db.drop_all()
+
+
+def test_create_ticket_invalid_cases(client):
+    for body, expected_response in invalid_ticket_bodies:
+        response = client.post("/ticket", json=body)
+        assert response.status_code == 400
+        assert response.json == expected_response
 
 
 def test_create_ticket(client):
