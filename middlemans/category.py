@@ -27,7 +27,7 @@ def verify_category_exists(next):
 
 
 def verify_category_patch(next):
-    def decorator(self, category_id, **data):
+    def decorator(self, category_id=None, **data):
         body = self.get_json_body()
         if not body:
             return self.send_json(
@@ -43,13 +43,22 @@ def verify_category_patch(next):
 
         errors = validate_category_fields(body)
 
+        if "name" in body and (body["name"] is None or body["name"].strip() == ""):
+            return self.send_json(
+                {"errors": [error_message(LocalApiCode.invalidCategoryName)]}
+            )
+
+        if "parent_id" in body and (
+            body["parent_id"] is None or not isinstance(body["parent_id"], int)
+        ):
+            return self.send_json(
+                {"errors": [error_message(LocalApiCode.invalidParentCategory)]}
+            )
+
         if errors:
             return self.send_json({"errors": errors})
 
-        if "name" in body:
-            data["name"] = body["name"]
-        if "parent_id" in body:
-            data["parent_id"] = body["parent_id"]
+        data.update(body)
 
         return next(self, category_id=category_id, **data)
 
