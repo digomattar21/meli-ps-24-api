@@ -108,6 +108,32 @@ The project includes both unit and integration tests to ensure the functionality
   - Integration test covering controllers and gateways 
 
 
+### Monitoring and Analysis Metrics
+1. Metrics for the Datadog Dashboard
+
+- Request Success Rate (HTTP Status Codes): Track the success of requests made to the application by monitoring the proportion of 2xx (success), 4xx (client errors), and 5xx (server errors) status codes over time.
+
+- Request Latency: Measure the average response time of requests, including percentiles (p50, p95, p99), to ensure response times are within acceptable limits.
+
+- Error Rate: Monitor the application's error rate (unhandled exceptions, database failures, etc.) to identify issues that affect system stability.
+
+- Request Throughput (Requests Per Second - RPS): Analyze the number of requests per second to identify traffic spikes and assess infrastructure capacity.
+
+- Resource Usage (CPU, Memory, I/O): Track CPU, memory, and disk usage on servers to ensure the infrastructure can handle the application's load without performance degradation.
+
+- Database Metrics: Include query execution times, cache hit rates, and active connections to ensure the database is operating efficiently.
+
+- Availability Metrics (Uptime): Monitor the application's availability, including downtime and outages, to ensure SLA compliance.
+
+2. Metrics for New Relic
+
+- Apdex Score: Measure user satisfaction with the application's performance.
+
+- Transaction Response Time: Analyze the average and maximum response times of the application's critical transactions to identify potential bottlenecks.
+
+- Transaction Errors: Identify and monitor failed transactions, allowing for quick response to critical issues.
+
+
 ### API Endpoints
 
 
