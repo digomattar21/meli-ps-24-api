@@ -51,7 +51,7 @@ This project is a Ticket Management API built with Python and Flask. It provides
 
 2. Acess the applcation
 
-    The application should now be running and accessible. Typically, you can access it via http://localhost:5000 in your browser.
+   http://localhost:5000 
 
 
 ### Running tests
@@ -69,7 +69,7 @@ This project is a Ticket Management API built with Python and Flask. It provides
 
 ### Functionalities
 
-- **CRUD Operations**: Provides Create, Read, Update, and Delete operations for tickets and categories.
+- **CRUD Operations**: Provides Create, Read, Update, and Delete operations for tickets, categories and severities.
 
 - **External API Integration**: Integrates with JSONPlaceholder API to assign tickets to users based on external user IDs.
 
@@ -87,7 +87,7 @@ This project is a Ticket Management API built with Python and Flask. It provides
 
 - **Test Suite**: Automated unit and integration tests, executed with `pytest`, cover essential parts of the application like controllers, gateways, models, and middleware.
 
-- **Pre-commit Hooks**: `black`, `flake8`, and `isort` are configured as pre-commit hooks to enforce code formatting and linting before commits, maintaining consistent code quality.
+- **Pre-commit Hooks**: `black`, `flake8`, and `isort` are configured as pre-commit hooks to enforce code formatting and linting before commits.
 
 
 - **GitHub Actions Configuration**: The CI pipeline is configured in the `.github/workflows/` directory. It automatically:
