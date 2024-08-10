@@ -139,6 +139,9 @@ The project includes both unit and integration tests to ensure the functionality
 
 #### 1.  Create a Ticket
 
+[**Postman Collection**](./postman.json)
+
+
 - **Endpoint**: `POST /ticket`
 - **Description**: Creates a new ticket in the system.
 - **Request Body**:
